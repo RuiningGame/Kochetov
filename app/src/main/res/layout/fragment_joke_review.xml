@@ -13,55 +13,11 @@
         android:indeterminate="true"
         android:layout_centerInParent="true"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/authorView"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Author"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewCard"
-            app:cardCornerRadius="8dp"
-            android:layout_margin="8dp"
-            android:elevation="10dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:usesCleartextTraffic="true" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/descView"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <LinearLayout
         android:id="@+id/sliderLayout"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -79,6 +35,56 @@
             android:layout_marginLeft="24dp"
             android:text="Вперед"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_above="@+id/sliderLayout"
+        android:id="@+id/layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/authorView"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Author"/>
+
+        <TextView
+            android:id="@+id/descView"
+            android:layout_alignParentBottom="true"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryTextColor"
+            android:text="Description"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/authorView"
+            android:layout_above="@+id/descView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageViewCard"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="8dp"
+            android:elevation="10dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:usesCleartextTraffic="true" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
     <include
         android:layout_centerInParent="true"

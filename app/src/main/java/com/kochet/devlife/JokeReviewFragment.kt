@@ -30,7 +30,7 @@ class JokeReviewFragment(private val jokeContext: JokeSectionContext) : Fragment
     private lateinit var progressView: CircularProgressIndicator
     private lateinit var authorView: TextView
     private lateinit var descView: TextView
-    private lateinit var layout: LinearLayoutCompat
+    private lateinit var layout: RelativeLayout
     private lateinit var previousJokeButton: Button
     private lateinit var nextJokeButton: Button
     private lateinit var sliderLayout: LinearLayout
@@ -65,6 +65,8 @@ class JokeReviewFragment(private val jokeContext: JokeSectionContext) : Fragment
             .setOnClickListener {
                 hideErrorView()
                 GlobalScope.launch(Dispatchers.IO) { sendGet() } }
+
+        GlobalScope.launch(Dispatchers.IO) { sendGet() }
         return view
     }
 
@@ -104,12 +106,14 @@ class JokeReviewFragment(private val jokeContext: JokeSectionContext) : Fragment
                     circularProgressDrawable.centerRadius = 50f
                     circularProgressDrawable.start()
                 }
-                Glide.with(this)
-                    .asGif()
-                    .load(joke.gifURL)
-                    .placeholder(circularProgressDrawable)
-                    .error(R.mipmap.ic_launcher_round)
-                    .into(imageView)
+                activity?.let {
+                    Glide.with(it)
+                        .asGif()
+                        .load(joke.gifURL)
+                        .placeholder(circularProgressDrawable)
+                        .error(R.mipmap.ic_launcher_round)
+                        .into(imageView)
+                }
             }
         }
     }
@@ -132,12 +136,6 @@ class JokeReviewFragment(private val jokeContext: JokeSectionContext) : Fragment
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        GlobalScope.launch(Dispatchers.IO) { sendGet() }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun sendGet()
     {
             activity?.runOnUiThread { progressView.visibility = View.VISIBLE }
@@ -157,8 +155,8 @@ class JokeReviewFragment(private val jokeContext: JokeSectionContext) : Fragment
                     it.lines().forEach { line ->
                         parseResponse(line)
                     }
-                    setJoke()
                 }
+                setJoke()
             }
         }
         catch (e: Exception) {
